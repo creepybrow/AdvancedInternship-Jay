@@ -1,31 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoClose } from 'react-icons/io5';
+import {useRouter} from 'next/router';
+import Link from 'next/link';
+
 
 export default function Modal({isOpen, onClose}){
+    const [isMounted, setIsMounted] = useState(false);
+    
     if(!isOpen) return null;// Don't render the modal if it isn't open
   return (
     <>
-    <div className='fixed inset-0 bg-gray-950 bg-opacity-50 flex justify-center items-center z-40'
-    onClick={onClose}>
-    </div>
-    <div className='bg-white p-6 rounded-lg w-80 m-auto mt-80 z-50 h-auto'
+    
+    <div className='fixed bg-red-300 p-6 rounded-lg w-80 mt-80 z-50 h-auto'
     onClick={(e) => e.stopPropagation()}
-    style={{pointerEvents: "auto"}}
+    style={{
+        pointerEvents: "auto",
+        top:"20%",
+        left:"50%",
+        transform:"translate(-50%, -50%)"
+        }}
     >
-     <div className='flex justify-between items-center mb-4'>
+     <div className=' flex justify-between items-center mb-4'>
         <h2 className='text-xl font-semibold'>Login</h2>
-        <button onClick={onClose} className='text-gray-500'>
-            <IoClose size={24}/>
+        <button className='text-gray-500' onClick={onClose} style={{pointerEvents:"auto"}}>
+            X
         </button>
         </div>
         {/*Login Options*/}
         <div className='space-y-4'>
+            <Link href="/foryou">
             <button
-            onClick={() => alert("Loggin in as Guest")}
+            onClick={() => {alert("Loggin in as Guest");
+            router.push("/foryou");
+            }}
             className='w-full py-2 bg-blue-300 text-gray rounded-lg'
             >
             Login as Guest
             </button>
+            </Link>
             
             <div className='space-y-2'>
                 <div className='flex items-center space-x-2'>
